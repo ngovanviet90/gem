@@ -81,8 +81,8 @@ Global 	$height = 420, $Random10, $Random5
 $GUI 		= GUICreate("Go Win", 130, 270, -1, -1, BitXOR($GUI_SS_DEFAULT_GUI, $WS_MINIMIZEBOX))
 $start1 	= GUICtrlCreateButton("START 1", 4, 4, 60, 41, 0x0001)
 $start2 	= GUICtrlCreateButton("START 2", 64, 4, 60, 41, 0x0001)
-Global $tolerance = GUICtrlCreateInput("100", 4, 48, 60, 20, $ES_NUMBER)
-Global $tolerance2 = GUICtrlCreateInput("55", 64, 48, 60, 20, $ES_NUMBER)
+Global $tolerance = GUICtrlCreateInput("120", 4, 48, 60, 20, $ES_NUMBER)
+Global $tolerance2 = GUICtrlCreateInput("95", 64, 48, 60, 20, $ES_NUMBER)
 Global $margin_top1 = GUICtrlCreateInput("460", 4, 70, 60, 20, $ES_NUMBER)
 Global $margin_top2 = GUICtrlCreateInput("222", 64, 70, 60, 20, $ES_NUMBER)
 $idListview = GUICtrlCreateListView(" Name   | #", 4, 102, 120, 103)
@@ -181,15 +181,29 @@ Func _Start_1()
 			EndIf
 		EndIf
 	Next
-
 	If UBound($imgThumnails2) > 13 Then
 			For $i = 0 To UBound($imgThumnails2) - 1
 				If _elementExists($imgThumnails2, $i) Then
-					$Result  = _IMGSearch_Area(@scriptdir&"\image\gem3\" & $imgThumnails2[$i] &".bmp", $position1[0], $position1[1], $position1[2], $position1[3], GUICtrlRead($tolerance))
+					$Result  = _IMGSearch_Area(@scriptdir&"\image\gem7\" & $imgThumnails2[$i] &".bmp", $position1[0], $position1[1], $position1[2], $position1[3], GUICtrlRead($tolerance))
 					If $Result[0] = 1 Then
 						_ArrayDelete($imgThumnails2, $i)
 					Else
-						$Result2 = _IMGSearch_Area(@scriptdir&"\image\gem4\" & $imgThumnails2[$i] &".bmp", $position1[0], $position1[1], $position1[2], $position1[3], GUICtrlRead($tolerance))
+						$Result2 = _IMGSearch_Area(@scriptdir&"\image\gem8\" & $imgThumnails2[$i] &".bmp", $position1[0], $position1[1], $position1[2], $position1[3], GUICtrlRead($tolerance))
+						If $Result2[0] = 1 Then
+							_ArrayDelete($imgThumnails2, $i)
+						EndIf
+					EndIf
+				EndIf
+			Next
+	EndIf
+	If UBound($imgThumnails2) > 13 Then
+			For $i = 0 To UBound($imgThumnails2) - 1
+				If _elementExists($imgThumnails2, $i) Then
+					$Result  = _IMGSearch_Area(@scriptdir&"\image\gem9\" & $imgThumnails2[$i] &".bmp", $position1[0], $position1[1], $position1[2], $position1[3], GUICtrlRead($tolerance))
+					If $Result[0] = 1 Then
+						_ArrayDelete($imgThumnails2, $i)
+					Else
+						$Result2 = _IMGSearch_Area(@scriptdir&"\image\gem10\" & $imgThumnails2[$i] &".bmp", $position1[0], $position1[1], $position1[2], $position1[3], GUICtrlRead($tolerance))
 						If $Result2[0] = 1 Then
 							_ArrayDelete($imgThumnails2, $i)
 						EndIf
@@ -198,16 +212,7 @@ Func _Start_1()
 			Next
 	EndIf
 
- 	If UBound($imgThumnails2) > 13 Then
-  		For $i = 0 To UBound($imgThumnails2) - 1
-  			If _elementExists($imgThumnails2, $i) Then
-				$Result  = _IMGSearch_Area(@scriptdir&"\image\gem5\" & $imgThumnails2[$i] &".bmp", $position1[0], $position1[1], $position1[2], $position1[3], GUICtrlRead($tolerance))
-				If $Result[0] = 1 Then
-					_ArrayDelete($imgThumnails2, $i)
-				EndIf
-  			EndIf
-  		Next
-  	EndIf
+
 
 	$fDiff = TimerDiff($hTimer)
 	GUISetState(@SW_SHOW,$GUI)
